@@ -1,0 +1,54 @@
+<body>
+  <div class="main"></div>
+<p style="font-size: 20px;">Please Click on Tickets to view tickets booked by you.</p>
+<button class="ticket-button" style="font-size: 20px;"  (click)=viewTickets()>Tickets</button>
+<br>
+<br>
+<table class="center" *ngIf="this.show" border="1" cellspacing='2' cellpadding='5' width='100%'>
+    <thead>
+      <tr>
+        
+        <th>User Name</th>
+        <th>Train Number</th>
+        <th>Train Name</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Distance</th>
+        <th>Journey Date</th>
+        <th>Class Type</th>
+        <th>No Of Tickets</th>
+        <th>PNR</th>
+        <th>Total Fare</th>
+        <th>Print Ticket</th>
+        <th col-span=1>Cancel Ticket</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngFor="let ticket of tickets">
+        
+        <td>{{ticket.email}}</td>
+        <td>{{ticket.trainNumber}}</td>
+        <td >{{ticket.trainName}}</td>
+        <td>{{ticket.source}}</td>
+        <td>{{ticket.destination}}</td>
+        <td>{{ticket.dTime}}</td>
+        <td>{{ticket.aTime}}</td>
+        <td>{{ticket.distance}}</td>
+        <td>{{ticket.journeyDate}}</td>
+        <td>{{ticket.classType}}</td>
+        <td>{{ticket.noOfTickets}}</td>
+        <td >{{ticket.pnr}}</td>
+      
+        <td>{{ticket.totalFare}}</td>
+        <td><button  class="btn btn-info" (click)="print(ticket)">Print</button></td>
+        <td><button  class="btn btn-danger" (click)="deleteTicket(ticket.pnr)">Cancel Ticket</button></td>
+      
+      </tr>
+    </tbody>
+    
+  </table>
+</body>

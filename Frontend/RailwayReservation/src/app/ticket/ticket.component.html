@@ -1,0 +1,97 @@
+<!--
+
+<mat-drawer-container>
+    
+    <mat-drawer-content opened>
+        <div>
+      Profile
+    </div>
+    <div>
+    <span routerLink='/ticket/reservation'> Ticket Booking  
+    </span>
+        
+            
+        
+    
+</div>
+    <div>
+       <span routerLink="/ticket/viewTickets"> View Tickets</span>
+       
+    </div>
+</mat-drawer-content>
+    
+   
+</mat-drawer-container>
+<router-outlet></router-outlet>
+-->
+
+<!--
+<div class="wrapper">
+
+     Sidebar 
+    <nav id="sidebar">
+        <div>
+            <span routerLink='/ticket/reservation'> Ticket Booking 
+                
+        </div>
+            <div>
+               <span routerLink="/ticket/viewTickets"> View Tickets</span>
+            </div>
+    </nav>
+
+     Page Content 
+  
+
+</div>       
+
+<div class="sidenav">
+    <a routerLink='/ticket/reservation'>Ticket Booking</a>
+    <a routerLink='/ticket/viewTickets'>View Tickets</a>
+   
+  </div>
+  
+   Page content
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+-->
+<!--
+<div>
+<mat-toolbar class="navbar">
+    <div>
+       Hello {{this.userName}}
+    </div>
+    
+
+
+<div class="sidenav">
+    <p class="action" routerLink="/ticket/reservation">Book Ticket</p>
+        <p class="action" routerLink='/ticket/viewTickets'>View Tickets</p>
+        
+  </div>
+  
+  
+  <div class="main">
+    ...
+  </div>
+</mat-toolbar>
+</div>
+-->
+<div id="user">
+    <section class="topnav">
+        <mat-toolbar class="navbar">
+            <div>
+               Hello {{this.userName}}
+            </div>
+            <div>
+            <span class="action" routerLink="/ticket/reservation">Book Ticket</span>
+                <span class="action" routerLink='/ticket/viewTickets'>History</span>
+                
+            </div>
+</mat-toolbar>        
+    </section> 
+    
+</div>
+
+
+<router-outlet></router-outlet>

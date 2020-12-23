@@ -1,0 +1,28 @@
+.topnav{
+    height: auto;
+    position: relative;
+    width: 100%;
+    margin: 0px;
+    padding: 0%;
+    text-align: center;
+}
+button{
+  border:0;
+}
+body{
+  width: 113%;
+  background-color: darkgrey;
+}
+.main{
+  width: 100%;
+}
+span{
+  padding: 10px;
+  border:none
+}
+button{
+  border:none;
+}
+table{
+  text-align: center;
+}

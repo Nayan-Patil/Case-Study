@@ -1,0 +1,164 @@
+
+  
+<body>
+  
+
+<div class="block">
+  <div class="container-fluid">
+    <h1 style="text-align: center;font-weight: 700;color:white;font-size: 30px;">Train Ticket Booking</h1>
+    <div class="search-form">
+      <form class="search-form" >
+        <div class="row">
+          <div class="col">
+        <div class="form-group">
+          
+          <mat-form-field appearance="source">
+            <mat-label>From</mat-label>
+            <input matInput name="source" #source="ngModel" [(ngModel)]="trainData.source" placeholder="Enter source station"  required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col">
+
+        <div class="form-group">
+          <mat-form-field appearance="destination">
+            <mat-label>To</mat-label>
+            <input matInput name="destination" #destination="ngModel" [(ngModel)]="trainData.destination" placeholder="Enter Destination" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col">
+
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a journey date</mat-label>
+            <input matInput name="date"  [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+           <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      </div>
+      
+      <div class="text-center">
+        <button (click)="searchTrain()" style="text-align: center;" type="button" class="btn success">Search</button>
+     
+      </div>
+    </form>
+    <div>
+        <br>
+    </div>
+    </div>
+    
+    <table *ngIf="this.show" class="table-hovered" border="1" cellspacing='2' cellpadding='7' width='100%'>
+      
+      <thead>  
+        <tr>
+          <th>Train Number</th>
+          <th>Train Name</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Distance</th>
+          <th>Vacant Seats</th>
+          <th>Depart Time</th>
+          <th>Arrival Time</th>
+          <th>Book Ticket</th>
+          
+          
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr *ngFor="let train of trainsList">
+          <td>{{train.trainNumber}}</td>
+          <td>{{train.trainName}}</td>
+          <td>{{train.source}}</td>
+          <td>{{train.destination}}</td>
+          <td>{{train.distance}}</td>
+          <td>{{train.vacantSeats}}</td>
+          <td>{{train.dTime}}</td>
+          <td>{{train.aTime}}</td>
+          <td><button routerLink="/ticket" class="btn btn-success"> Book Ticket</button></td>
+        </tr>
+      </tbody>
+      
+    </table>
+
+   
+  
+    
+    </div>
+   
+    
+     <div class="container-section">  
+<br> 
+<br>
+             <section id="speakers">
+                    
+                    <section id="Speaker1"> 
+                        <h3>Rail Tour Packages </h3>
+                        <img [src]="img1" alt="">
+                        <p>IRCTC offers Exclusive Rail tour packages with confirmed train tickets, sight-seeing and meals for enchanting Nilgiri Mountains, Darjeeling, Kullu Manali, Kashmir, Gangtok or divine tours of Mata Vaishno Devi, Rameswaram, Madurai, Shirdi, Tirupati etc. Holiday packages/ Land packages to these destinations are also available.</p>
+                    
+                    </section>
+                    
+                    
+                    <section>
+                        <h3>Domestic Air Packages</h3>
+                        <img [src]="img2" alt="">
+                        <p>Be it the spiritual devotee seeking blessings of Tirupati, Shirdi or Mata Vaishno Devi or the leisure traveller wanting to relish the Blue mountains of North East, Sand-dunes of Rajasthan, Hamlets of Ladakh, Wonders of Himalayas, Serene lakes or Picturesque Islands, IRCTC has it all. Discover India through IRCTC!</p>
+                    </section>
+                   
+                    <section>
+                       <h3>International Packages</h3>
+                        <img [src]="img3" alt="">
+                    <p>Best deals in International Holiday packages, handpicked by IRCTC, for Thailand, Dubai, Sri Lanka, Hong Kong, China, Macau, Bhutan, Nepal, U.K., Europe, USA, Australia etc. The packages are inclusive of sightseeing, meals, visa charges and overseas medical insurance to give you a hassle-free and memorable experience.</p>
+                    </section>
+                    
+                </section>
+              </div>
+    </div>
+    <!--    <footer>
+      <div class="container no-pad">
+        <div class="footer-container">
+          <div class="row">
+            <div class="col-sm-2">
+              <p class="footer-head">Features</p>
+              <ul>
+                <li>Trains Search</li>
+                <li>PNR status</li>
+                <li>Payments</li>
+              </ul>
+            </div>
+            <div class="col-sm-2">
+              <p class="footer-head">About</p>
+              <ul>
+                <li>About Us</li>
+                <li>Help</li>
+                <li>Careers</li>
+              </ul>
+            </div>
+            <div class="col-sm-2">
+              <p class="footer-head">Contact</p>
+              <ul>
+                <li>Facebook</li>
+                <li>Twitter</li>
+                <li>Email</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>-->
+
+  </body>
+  <footer>
+    <h3>Contact Us</h3>
+    <p>Rail@gmail.com</p>
+    
+    <hr>
+    <p>@Copyright RailwayJourney. All Rights Reserved</p>
+  </footer>
+    <router-outlet></router-outlet>
+ 

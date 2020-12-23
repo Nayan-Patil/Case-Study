@@ -1,0 +1,66 @@
+<!--
+<mat-toolbar color="primary" class="navbar">
+    <div>
+        Admin
+    </div>
+    <div>
+        <span routerLink="/adminOperations/addTrain">AddTrain</span>
+        <span>Update Train</span>
+        <span>Delete Train</span>
+    </div>
+</mat-toolbar>
+-->
+<body>
+  
+
+<div class="main">
+<mat-toolbar class="navbar">
+    <div>
+       Hello Admin
+    </div>
+    <span>
+        <button type="submit" (click)="getTrains()">View Trains</button></span>
+        <span>
+    <button type="submit" (click)="addTrain()">Add Train</button>
+</span>
+    
+
+</mat-toolbar> 
+<div>
+       <table *ngIf="this.show" border="1" cellspacing='2' cellpadding='7' width='100%'>
+        <thead>
+          <tr>
+            <th>Train Number</th>
+            <th>Train Name</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th>Distance</th>
+            <th>Vacant Seats</th>
+            <th scope="col" col-span=2>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr *ngFor="let train of allTrains">
+            <td>{{train.trainNumber}}</td>
+            <td>{{train.trainName}}</td>
+            <td>{{train.source}}</td>
+            <td>{{train.destination}}</td>
+            <td>{{train.dTime}}</td>
+            <td>{{train.aTime}}</td>
+            <td>{{train.distance}}</td>
+            <td>{{train.vacantSeats}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" (click)="onEdit(train)">Update</button>
+                <br>
+                <button type="button" class="btn btn-danger" (click)="deleteTrain(train.trainNumber)"><i class="far fa-trash-alt">Delete</i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</div>
+</body>
+<router-outlet></router-outlet>

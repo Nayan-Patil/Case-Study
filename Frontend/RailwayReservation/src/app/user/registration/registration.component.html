@@ -1,0 +1,68 @@
+
+<div class="container-lg">
+   
+<form #registrationForm="ngForm"  (ngSubmit)="registrationForm.valid && onSubmit(registrationForm)" class="" >
+    <div class="container-center">
+        <h1 style="font-size: 50px;font-weight: 700;font-family: 'Times New Roman', Times, serif;">Register</h1>
+        <p>Create an account for ticket booking</p>
+        
+    <label for="" class="label">Name</label>
+    <br>
+   <input type="text" #name="ngModel" [(ngModel)]="userService.selectedUser.name" name="name" placeholder="Enter Full Name" id="name" 
+    required [ngClass]="{'invalid-textbox' :registrationForm.submitted && !name.valid}">
+    <div *ngIf="registrationForm.submitted && !name.valid">
+        <label class="validation-message" style="color: red;">This field is required.</label>
+    </div>
+
+    <br>
+    <label for="" class="label">Email:</label>
+    <br>
+    <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Enter email Id" id="email"
+     required [pattern]="emailPattern" [ngClass]="{'invalid-textbox': registrationForm.submitted && !email.valid}">
+     <div *ngIf="registrationForm.submitted && email.errors">
+         <label *ngIf="email.errors.required" class="vlaidation-message" style="color: red;">This field is required</label>
+         <label *ngIf="email.errors.pattern" class="validation-message" style="color: red;">Invalid email Id</label>
+     </div>
+    <br>
+    <label for="" class="lable">Password:</label>
+    <br>
+    <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" id="" placeholder="Enter password">
+   <!-- <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'"  minlength=6>
+         <div *ngIf="registrationForm.submitted && password.errors">
+              <label *ngIf="password.errors.minLength" class="validation-message">Minimum 6 Characters</label>
+              <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+          </div>
+          
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field> 
+    -->
+        <br>
+        <label for="" class="label">Age:</label>
+        <br>
+        <input type="text" #age="ngModel" [(ngModel)]="userService.selectedUser.age" name="age" placeholder="Enter age" id="age">
+    <br>
+        <button type="submit"  class="btn btn-success"   value="Register"  >Register</button>
+    </div>
+</form>
+<div *ngIf=this.show  aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+
+    <!-- Then put toasts within -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+         
+        </button>
+      </div>
+      <div class="toast-body">
+        this.showSuccessMessage
+      </div>
+    </div>
+  </div>
+</div> 
+
+

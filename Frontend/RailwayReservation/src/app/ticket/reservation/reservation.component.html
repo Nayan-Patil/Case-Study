@@ -1,0 +1,270 @@
+
+<!--<div class="flex-box">
+    <div class="search-form">
+      <form class="search-form" >
+        <div class="form-group">
+          <mat-form-field appearance="source">
+            <mat-label>From</mat-label>
+            <input matInput name="source" #source="ngModel" [(ngModel)]="trainData.source" placeholder="From">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="destination">
+            <mat-label>To</mat-label>
+            <input matInput name="destination" #destination="ngModel" [(ngModel)]="trainData.destination" placeholder="To">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a journey date</mat-label>
+            <input matInput name="date"  [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+           <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <button (click)="searchTrain()"  type="button" class="btn btn-success float-right">Search</button>
+    </form>
+    <div>
+        
+    </div>
+    </div>
+    <table border="1" cellspacing='2' cellpadding='6' width='100%'>
+      <thead>
+        <tr>
+          <th>Train Number</th>
+          <th>Train Name</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Distance</th>
+          <th>Vacant Seats</th>
+          <th>classType</th>
+          
+          <th>No. Of Tickets</th>
+          <th col-span=1>Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr *ngFor="let train of trainsList">
+          <td>{{train.trainNumber}}</td>
+          <td>{{train.trainName}}</td>
+          <td>{{train.source}}</td>
+          <td>{{train.destination}}</td>
+          <td>{{train.distance}}</td>
+          <td>{{train.vacantSeats}}</td>
+          <td><select >
+            <option value="A1">A1</option>
+            <option value="A2">A2</option>
+            <option value="A3">A3</option>
+            <option value="B1">B1</option>
+            <option value="B2">B2</option>
+            <option value="B3">B3</option>
+            <option value="Sleeper">Sleeper</option>
+          </select></td>
+          
+          <td><select >
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select></td>
+          <td><button  class="btn btn-primary" (click)="bookTicket()" >Book</button></td>
+        
+        </tr>
+      </tbody>
+      
+    </table>
+
+   
+    
+    
+    </div>
+-->
+
+<html>
+    <head></head>
+<body>
+    
+
+
+
+    <div class="booking-form-box">
+        <h1>BOOK TRAIN TICKET</h1>
+        <div class="booking-form">
+        
+        <form class="book-ticket">
+            <div class="form-group">
+                <mat-form-field appearance="Name">
+                    <mat-label>Email</mat-label>
+                    <input matInput name="email"  #email="ngModel" [(ngModel)]="ticketData.email" placeholder="Enter Email" required>
+                </mat-form-field>
+            </div>
+            
+    <!--        <div class="form-group">
+                <mat-form-field appearance="Age">
+                    <mat-label>Age</mat-label>
+                    <input matInput name="age" #age="ngModel" [(ngModel)]="ticketData.age" placeholder="Enter Age">
+                </mat-form-field>
+            </div>-->
+            <div class="form-group">
+                <mat-form-field appearance="From">
+                    <mat-label>From</mat-label>
+                    <input matInput name="source" #from="ngModel" [(ngModel)]="ticketData.source" placeholder="Enter Source" required>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="To">
+                    <mat-label>To</mat-label>
+                    <input matInput name="destination" #destination="ngModel" [(ngModel)]="ticketData.destination" placeholder="Enter Destination" required>
+                </mat-form-field>
+            </div>
+            <div class="form-group"><button type="submit"  (click)="searchTrain()">Check</button></div>
+            
+            
+            <br>
+       
+      <!--      <div class="form-group">
+                <mat-form-field appearance="Train Number">
+                    <mat-label>Train Number</mat-label>
+                    <input matInput name="trainNumber" #trainNumber="ngModel" [(ngModel)]="ticketData.trainNumber" placeholder="Enter trainNumber">
+                </mat-form-field>
+            </div>-->
+            <div class="form-group">
+                
+                <mat-label>Select Train</mat-label>
+                <br>
+                <select class="select-field" name="trainName"  #trainName="ngModel" [(ngModel)]="ticketData.trainName" id="" required>Train Name
+                    <option value="sselect Train">Select Train</option>
+                    <option *ngFor="let train of trainsList" value="{{train.trainName}}">{{train.trainName}}</option>
+                </select>
+            </div>
+        <!--    <div class="form-group">
+                <mat-form-field appearance="Train Name">
+                    <mat-label>Train Name</mat-label>
+                    <input matInput name="trainName" #trainName="ngModel" [(ngModel)]="ticketData.trainName" placeholder="Enter Train Name">
+                </mat-form-field>
+            </div>-->
+    <!--        <div class="form-group">
+                <mat-form-field appearance="Distance">
+                    <mat-label>Distance</mat-label>
+                    <input matInput name="distance" #distance="ngModel" [(ngModel)]="ticketData.distance" placeholder="Enter Name">
+                </mat-form-field>
+            </div>-->
+            <div class="form-group">
+                
+                <mat-label>Select Class Type</mat-label>
+                <br>
+                <select name="classType" #classType="ngModel" [(ngModel)]="ticketData.classType" required>Class Type
+                    <option >Select Class</option>
+                    <option value="A1">A1</option>
+                    <option value="A2">A2</option>
+                    <option value="A3">A3</option>
+                    <option value="B1">B1</option>
+                    <option value="B2">B2</option>
+                    <option value="Sleeper">Sleeper</option>
+                </select>
+            </div>
+           <!-- <div class="form-group">
+                <mat-form-field appearance="Class">
+                    <mat-label>Class</mat-label>
+                    <input matInput name="classType" #classType="ngModel" [(ngModel)]="ticketData.classType" placeholder="Enter Name">
+                </mat-form-field>
+            </div>
+            -->
+            <div class="form-group">
+                <div>No of Tickets</div>
+                <select name="noOfTickets" #noOfTickets="ngModel" [(ngModel)]="ticketData.noOfTickets" required>No Of Tickets
+                    
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                </select>
+            </div>
+        <!--    <div class="form-group">
+                <mat-form-field appearance="No. Of Tickets">
+                    <mat-label>No. Of Tickets</mat-label>
+                    <input matInput name="noOfTickets" #noOfTickets="ngModel" [(ngModel)]="ticketData.noOfTickets" placeholder="Enter Number of tickets">
+                </mat-form-field>
+            </div>
+            -->
+            <br>
+            <div class="form-group">
+                <mat-form-field appearance="fill">
+                  <mat-label>Choose a journey date</mat-label>
+                  <input matInput name="journeyDate" #journeyDate="ngModel" [(ngModel)]="ticketData.journeyDate"  [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                 <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            <!--
+            <div class="form-group">
+                <mat-form-field appearance="Journey Date">
+                    <mat-label>Journey Date</mat-label>
+                    <input matInput name="journeyDate" #journeyDate="ngModel" [(ngModel)]="ticketData.journeyDate" placeholder="Enter Journey Date">
+                </mat-form-field>
+            </div>
+            -->
+            <div class="form-group">
+  <button class="btn btn-success" (click)="bookTicket()">Confirm</button>
+            </div>
+        
+        </form>
+    </div>
+    </div>
+    
+
+</body>
+</html>
+
+<!--
+<div class="Paypal" *ngIf="this.show">
+<input type="number" [(ngModel)]="finalAmount">
+<div  id="paypal-checkout-btn">
+</div>
+</div>
+
+
+<div class="container-fluid">
+    <h2>Booking Fomr</h2>
+    <form >
+        <div class="form-group">
+            <label >UserName</label>
+            <input type="text" class="form-control" name="name" id="">
+        </div>
+        <div class="form-group">
+            <label >From</label>
+            <input type="text" class="form-control" name="source" id="">
+        </div>
+        <div class="form-group">
+            <label >To</label>
+            <input type="text" class="form-control" name="destination" id="">
+        </div>
+        <div class="form-group">
+            <label >Train  number</label>
+            <input type="text" class="form-control" name="trainNumber" id="">
+        </div>
+        <div class="form-group">
+            <label >Train Name</label>
+            <input type="text" class="form-control" name="trainName" id="">
+        </div>
+        <div class="form-group">
+            <label >Distance</label>
+            <input type="Number" class="form-control" name="distance" id="">
+        </div>
+        <div class="form-group">
+            <label >Class Type</label>
+            <input type="text" class="form-control" name="classType" id="">
+        </div>
+        <div class="form-group">
+            <label >No of Tickets</label>
+            <input type="Number" class="form-control" name="noOfTickets" id="">
+        </div>
+
+    </form>
+</div>
+-->

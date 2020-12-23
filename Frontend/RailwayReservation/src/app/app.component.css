@@ -1,0 +1,27 @@
+*{
+    font-family: Body,Quicksand,sans-serif;
+   
+}
+body {
+    
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color:white;
+}
+.navbar{
+    justify-content: space-between;
+}
+span{
+    margin: 10px;
+}
+.container {
+    width: 750px;
+    
+}
+
+.container-router{
+    max-width: 1170px;
+    margin: 10px;
+
+}

@@ -1,0 +1,41 @@
+<p>train-table works!</p>
+<div>
+    <button type="submit" (click)="getTrains()">View Trains</button>
+    <button type="submit" (click)="addTrain()">Add Trains</button>
+    <table *ngIf="this.show" border="1" cellspacing='2' cellpadding='7' width='100%'>
+        <thead>
+          <tr>
+            <th>Train Number</th>
+            <th>Train Name</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th>Distance</th>
+            <th>Vacant Seats</th>
+            <th scope="col" col-span=2>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr *ngFor="let train of allTrains">
+            <td>{{train.trainNumber}}</td>
+            <td>{{train.trainName}}</td>
+            <td>{{train.source}}</td>
+            <td>{{train.destination}}</td>
+            <td>{{train.dTime}}</td>\
+            <td>{{train.aTime}}</td>
+            <td>{{train.distance}}</td>
+            <td>{{train.vacantSeats}}</td>
+            <td>
+              <span>
+                <button type="button" class="btn btn-primary" (click)="onEdit(train)">Update</button>
+              </span>
+              <span>
+                <button type="button" class="btn btn-danger" (click)="deleteTrain(train.trainNumber)"><i class="far fa-trash-alt">Delete</i></button></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<!-- Modal -->

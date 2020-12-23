@@ -1,0 +1,33 @@
+*{
+    background-color: lightseagreen;
+}
+#user{
+    width: 101.5%;
+    margin-left: -10px;
+    margin-right: auto;
+    margin-top: -10px;
+}
+.container-fluid{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding-left: -50px;
+    padding-right: -50px;
+}
+.topnav{
+    height: auto;
+    position: relative;
+    width: 115%;
+    margin: 0px;
+    padding: 0%;
+}
+
+.images{
+    position: relative;
+    width: 450px;
+    height: 345px;
+}
+span{
+    padding:20px;
+    columns: black;
+}

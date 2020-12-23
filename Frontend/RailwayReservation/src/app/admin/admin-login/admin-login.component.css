@@ -1,0 +1,43 @@
+.split{
+    width: 50%;
+    position: fixed;
+    top: 70px;
+    height: 100%;
+    
+   
+}
+.left {
+  left: 0;
+  
+  background-image: url(../../../assets/img/trainadmin.jpg);
+  background-size: cover;
+  background-position:center;
+ 
+}
+
+
+.right {
+  right: 0;
+  background-color:floralwhite;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+  .centered img {
+  width: 150px;
+  border-radius: 50%;
+}
+span{
+  text-align: center;
+  padding: 10px;
+}
+label{
+  font-size: 18px;
+  font-weight: 700;
+}
+

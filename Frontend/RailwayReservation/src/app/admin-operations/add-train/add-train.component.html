@@ -1,0 +1,42 @@
+<h3>Fill the details to add new train</h3>
+<form #addTrainForm="ngForm" (ngSubmit)="addTrainForm.valid && onSubmit(addTrainForm)">
+    <div class="form-row">
+      <div class="col">
+        <input type="text" #name="ngModel" [(ngModel)]="adminService.selectedTrain.trainNumber" name="trainNumber" class="form-control" placeholder="Enter Train Number">
+      </div>
+      <div class="col">
+        <input type="text"  #trainName="ngModel" [(ngModel)]="adminService.selectedTrain.trainName" name="trainName" class="form-control" placeholder="Enter Train Name">
+      </div>
+    </div>
+    <br>
+    <div class="form-row">
+        <div class="col">
+          <input type="text"  #source="ngModel" [(ngModel)]="adminService.selectedTrain.source" name="source" class="form-control" placeholder="Enter Source">
+        </div>
+        <div class="col">
+          <input type="text"  #destination="ngModel" [(ngModel)]="adminService.selectedTrain.destination" name="destination" class="form-control" placeholder="Enter Destination">
+        </div>
+      </div>
+      <br>
+      <div class="form-row">
+        <div class="col">
+          <input type="text"  #dTime="ngModel" [(ngModel)]="adminService.selectedTrain.dTime" name="dTime" class="form-control" placeholder="Departure Time">
+        </div>
+        <div class="col">
+          <input type="text"  #aTime="ngModel" [(ngModel)]="adminService.selectedTrain.aTime" name="aTime" class="form-control" placeholder="Arrival Time">
+        </div>
+      </div>
+      <br>
+      <div class="form-row">
+        <div class="col">
+          <input type="text"  #distance="ngModel" [(ngModel)]="adminService.selectedTrain.distance" name="distance" class="form-control" placeholder="Distance">
+        </div>
+        <div class="col">
+          <input type="text"  #vacantSeats="ngModel" [(ngModel)]="adminService.selectedTrain.vacantSeats" name="vacantSeats" class="form-control" placeholder="Total Seats">
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Add</button>
+      <p>Press Esc key to close the dialog</p>
+  </form>
+  

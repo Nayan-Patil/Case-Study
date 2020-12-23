@@ -1,0 +1,27 @@
+body{
+    height: 100%;
+    width: 100%;
+    
+}
+p{
+    text-align: center;
+}
+.ticket-button{
+    margin-left: 600px;
+    
+}
+.button{
+    margin:10px;
+    padding: 5px;
+    text-align: center;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+
+}
+table{
+    background-color: darkgrey;
+    text-align: center;
+    width: 100%;
+}

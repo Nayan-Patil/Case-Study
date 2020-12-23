@@ -1,0 +1,19 @@
+.card-deck{
+    position: relative;
+    padding-left: 110px;
+}
+.card{
+    background-color:lightgoldenrodyellow;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+img{
+    width: 100%;
+}
+h1{
+  font-weight: 700;  
+}
+p{
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+}
