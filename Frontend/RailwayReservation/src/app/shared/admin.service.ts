@@ -42,17 +42,22 @@ export class AdminService {
    { }
 
    loginAdmin(admin:any){
-     return this.http.post<any>("http://localhost:3000/admin/login",admin);
+     return this.http.post<any>("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/admin/login",admin);
    }
+   loggedIn(){
+   
+    return !!localStorage.getItem('token')
+    
+  }
    getAllTrains(){
-     return this.http.get("http://localhost:3000/allTrains/");
+     return this.http.get("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/allTrains/");
    }
    updateTrain(train:Train){
-     return this.http.put("http://localhost:3000/updateTrain/"+train.trainNumber,train)
+     return this.http.put("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/updateTrain/"+train.trainNumber,train)
    }
 
    deleteTrain(trainNumber:any){
-     return this.http.delete("http://localhost:3000/deleteTrain/"+trainNumber);
+     return this.http.delete("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/deleteTrain/"+trainNumber);
    }
 
    getToken(){
@@ -60,7 +65,7 @@ export class AdminService {
   }
 
   postTrain(train: Train){
-    return this.http.post("http://localhost:3000/addTrains/",train);
+    return this.http.post("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/addTrains/",train);
   }
   populateForm(train: Train){
     this.form.setValue(train);

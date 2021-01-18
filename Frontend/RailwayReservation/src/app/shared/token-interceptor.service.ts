@@ -7,7 +7,7 @@ import {UserService} from '../shared/user.service';
 export class TokenInterceptorService implements HttpInterceptor {
 
   constructor(private injerctor: Injector) { }
-  intercept(req, next){
+  intercept(req: { clone: (arg0: { setHeaders: { Authorization: string; }; }) => any; }, next: { handle: (arg0: any) => any; }){
     let userService=this.injerctor.get(UserService)
     let tokenizedReq=req.clone({
       setHeaders:{

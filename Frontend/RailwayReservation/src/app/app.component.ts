@@ -13,10 +13,10 @@ import { TicketService } from './shared/ticket.service';
 export class AppComponent {
   title = 'RailwayReservation';
 
-  constructor(private userService: UserService,
-              private homeService: HomeService,
-              private adminService: AdminService,
-              private ticketService:TicketService,
-              private router:Router){}
+  constructor(public userService: UserService,
+              public homeService: HomeService,
+              public adminService: AdminService,
+              public ticketService:TicketService,
+              public router:Router){}
 
 }

@@ -3,16 +3,18 @@ import { CanActivate, Router, UrlSegment, ActivatedRouteSnapshot, RouterStateSna
 
 //import { Observable } from 'rxjs';
 import {UserService} from '../app/shared/user.service';
+import {AdminService} from '../app/shared/admin.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
+    public adminService:AdminService,
     private router: Router){
 
   }
   canActivate():boolean{
-    if(this.userService.loggedIn()){
+    if(this.userService.loggedIn()||this.adminService.loggedIn()){
      // this.router.navigate(['/ticket'])
       return true
     }else{
@@ -20,5 +22,6 @@ export class AuthGuard implements CanActivate {
       return false
     }
   }
+  
 
 }

@@ -12,7 +12,7 @@
           <div class="col">
         <div class="form-group">
           
-          <mat-form-field appearance="source">
+          <mat-form-field appearance="fill">
             <mat-label>From</mat-label>
             <input matInput name="source" #source="ngModel" [(ngModel)]="trainData.source" placeholder="Enter source station"  required>
           </mat-form-field>
@@ -21,7 +21,7 @@
       <div class="col">
 
         <div class="form-group">
-          <mat-form-field appearance="destination">
+          <mat-form-field appearance="fill">
             <mat-label>To</mat-label>
             <input matInput name="destination" #destination="ngModel" [(ngModel)]="trainData.destination" placeholder="Enter Destination" required>
           </mat-form-field>
@@ -34,7 +34,7 @@
             <mat-label>Choose a journey date</mat-label>
             <input matInput name="date"  [matDatepicker]="picker">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-           <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+           <mat-datepicker  #picker></mat-datepicker>
           </mat-form-field>
         </div>
       </div>
@@ -77,8 +77,8 @@
           <td>{{train.destination}}</td>
           <td>{{train.distance}}</td>
           <td>{{train.vacantSeats}}</td>
-          <td>{{train.dTime}}</td>
           <td>{{train.aTime}}</td>
+          <td>{{train.dTime}}</td>
           <td><button routerLink="/ticket" class="btn btn-success"> Book Ticket</button></td>
         </tr>
       </tbody>

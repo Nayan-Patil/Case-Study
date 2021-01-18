@@ -3,7 +3,10 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AdminService} from '../../shared/admin.service';
-import swal from 'sweetalert';
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+
+const swal: SweetAlert = _swal as any;
 @Component({
   selector: 'app-train-update',
   templateUrl: './train-update.component.html',
@@ -12,9 +15,9 @@ import swal from 'sweetalert';
 })
 export class TrainUpdateComponent implements OnInit {
 
-  constructor(private adminService:AdminService,
+  constructor(public adminService:AdminService,
         private router: Router,
-        private dialogRef: MatDialogRef<TrainUpdateComponent>) { }
+        public dialogRef: MatDialogRef<TrainUpdateComponent>) { }
         @HostListener('window:keyup.esc') onKeyUp() {
           this.dialogRef.close();
         }

@@ -8,8 +8,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent implements OnInit {
-  loginAdminData={}
-  constructor(private adminService: AdminService,
+  isLoginError=false;
+  errorMessage1='';
+  errorMessage2='';
+  loginAdminData={
+    email:'',
+    password:''
+  }
+  constructor(public adminService: AdminService,
               private roter: Router) { }
 
   ngOnInit(): void {
@@ -21,7 +27,17 @@ export class AdminLoginComponent implements OnInit {
              console.log(res)
              localStorage.setItem('token',res.token)
            },
-           err=> console.log(err)
+           err=>{ console.log(err.error);
+            if(err.error=="Invalid email"){
+              this.isLoginError=true;
+              this.errorMessage1="Wrong email"
+            }
+            else if(err.error=="Invalid Password"){
+              this.isLoginError=true;
+              this.errorMessage1="Invalid Password";
+            }
+
+           }
          )
   }
 

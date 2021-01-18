@@ -1,8 +1,8 @@
 const express= require('express');
 const cors=require('cors');
 const connectDB=require('./DB/connection');
-const search_train=express();
-const bcrypt=require('bcrypt');
+const train=express();
+const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const swaggerJsDoc=require('swagger-jsdoc');
 const swaggerUi=require('swagger-ui-express');
@@ -25,7 +25,7 @@ const swaggerOptions={
 };
 
 const swaggerDocs=swaggerJsDoc(swaggerOptions);
-search_train.use('/train-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
+train.use('/train-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
 
 //const Train= require('./DB/trainData');
 const trainData = require('./DB/trainData');
@@ -34,10 +34,10 @@ const trainClassData = require('./DB/classModel');
 // admin data
 const adminData= require('./DB/adminSchema');
 const bodyParser=require('body-parser');
-//search_train.use(express.json({extended : false}));
-search_train.use(bodyParser.urlencoded({extended: false}));
-search_train.use(bodyParser.json());
-search_train.use(cors());
+train.use(express.json({extended : false}));
+train.use(bodyParser.urlencoded({extended: false}));
+train.use(bodyParser.json());
+train.use(cors());
 /*search_train.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin","*");
     res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
@@ -47,7 +47,7 @@ search_train.use(cors());
 
 //Add admin
 
-search_train.post('/admin',async(req,res)=>{
+train.post('/admin',async(req,res)=>{
     try{
         let admin={};
         admin.name=req.body.name;
@@ -68,7 +68,7 @@ search_train.post('/admin',async(req,res)=>{
     }
 })
 
-search_train.post('/admin/login',(req, res)=>{
+train.post('/admin/login',(req, res)=>{
     const email=req.body.email;
     const admin1={email: email, password:req.body.password}
     adminData.findOne({email: admin1.email}, (error, admin)=>{
@@ -80,7 +80,7 @@ search_train.post('/admin/login',(req, res)=>{
                 res.status(401).send('Invalid email')
             }
             else{
-                const auth=bcrypt.compare(admin1.password, admin.password)
+                const auth=bcrypt.compareSync(admin1.password,admin.password)
                 if(auth){
                     let payload={subject: admin._id}
                     let token=jwt.sign(payload, 'secret');
@@ -153,7 +153,7 @@ search_train.post('/admin/login',(req, res)=>{
   *     description: error
   */
 //Add Trains
-search_train.post('/addTrains/',(req,res)=>{
+train.post('/addTrains/',(req,res)=>{
    try{ const{trainNumber, trainName, source, destination, vacantSeats, distance, dTime, aTime}= req.body;
 
     let train={};
@@ -209,7 +209,7 @@ search_train.post('/addTrains/',(req,res)=>{
   *     description: error
   */
 //Add Train Class
-search_train.post('/trainClass/',async(req,res)=>{
+train.post('/trainClass/',async(req,res)=>{
     const{classType, fare}= req.body;
 
     let trainClass={};
@@ -221,7 +221,7 @@ search_train.post('/trainClass/',async(req,res)=>{
     res.json(classModel);
 })
 
-search_train.get('/classType/:classType',async(req,res)=>{
+train.get('/classType/:classType',async(req,res)=>{
     var queryParameters=req.params;
     var classType=queryParameters.classType;
     var getFare=function(classType){
@@ -257,7 +257,7 @@ search_train.get('/classType/:classType',async(req,res)=>{
   */
 
 //Get All trains
-search_train.get('/allTrains/',(req,res)=>{
+train.get('/allTrains/',(req,res)=>{
     
   
     var getAllTrains = function() {
@@ -287,7 +287,7 @@ search_train.get('/allTrains/',(req,res)=>{
    
    //get trains by source and destination 
 
-search_train.get('/trainList/:source/:destination',(req,res)=>{
+train.get('/trainList/:source/:destination',(req,res)=>{
     var queryParameters=req.params;
     var source1=queryParameters.source;
    var dest=queryParameters.destination;
@@ -318,8 +318,8 @@ search_train.get('/trainList/:source/:destination',(req,res)=>{
  
     // search train by train Name
 
-    search_train.get('/train',(req,res)=>{
-        var queryParameters=req.query;
+    train.get('/train/:trainName',(req,res)=>{
+        var queryParameters=req.params;
         
       var trainName1=queryParameters.trainName;
         
@@ -346,7 +346,7 @@ search_train.get('/trainList/:source/:destination',(req,res)=>{
         })
     
 //Update train details
-    search_train.put('/updateTrain/:trainNumber',(req,res)=>{
+    train.put('/updateTrain/:trainNumber',(req,res)=>{
         trainData.findOneAndUpdate({
             trainNumber:req.params.trainNumber
         },
@@ -369,7 +369,7 @@ search_train.get('/trainList/:source/:destination',(req,res)=>{
 
     });
 //Delete Train
-    search_train.delete('/deleteTrain/:trainNumber', (req,res)=>{
+train.delete('/deleteTrain/:trainNumber', (req,res)=>{
          trainNumber=req.params.trainNumber;
         trainData.findOneAndDelete({
             trainNumber:req.params.trainNumber
@@ -384,7 +384,32 @@ search_train.get('/trainList/:source/:destination',(req,res)=>{
     })
 
 
-
+    train.put('/trainUpdateSeats/:trainName', (req, res) => {
+        var 
+          train1={
+            trainNumber:req.body.trainNumber,
+            trainName:req.body.trainName,
+            source:req.body.source,
+            destination:req.body.destination,
+            distance:req.body.distance,
+            aTime:req.body.aTime,
+            dTime:req.body.dTime,
+           vacantSeats:req.body.vacantSeats
+    
+          
+          }
+        trainData.findOneAndUpdate({trainName:req.params.trainName}, 
+          {$set: train1}, {upsert: true}).then((response) => {
+          console.log(`Train updated`);
+        
+      res.send(response);
+        }).catch(err => {
+          if(err){
+            throw err;
+          }
+        })
+      });
+    
 
 
   
@@ -395,6 +420,6 @@ search_train.use('./controller/trainService',require('./controller/trainService'
 
 
 
-search_train.listen(3000);
+//search_train.listen(3000);
 
-module.exports=search_train;
+module.exports=train;

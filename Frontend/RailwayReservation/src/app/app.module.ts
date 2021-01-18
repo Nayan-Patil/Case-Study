@@ -37,6 +37,7 @@ import { TicketService } from './shared/ticket.service';
 import { SearchComponent } from './ticket/reservation/search/search.component';
 import { ViewTicketsComponent } from './ticket/view-tickets/view-tickets.component';
 import { AuthGuard } from './auth.guard';
+import {AdminGuard} from './admin.guard';
 //import { ReservationComponent } from './ticket/reservation/reservation.component';
 import {TokenInterceptorService} from './shared/token-interceptor.service';
 import { AdminOperationsComponent } from './admin-operations/admin-operations.component';
@@ -90,7 +91,7 @@ import { ProfileComponent } from './ticket/profile/profile.component';
   exports:[
     
   ],
-  providers: [HomeService, UserService,AuthGuard, AdminService, TicketService,
+  providers: [HomeService, UserService,AuthGuard,AdminGuard, AdminService, TicketService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

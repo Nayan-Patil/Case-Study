@@ -9,12 +9,12 @@ export class SearchComponent implements OnInit {
   @Output() selectedTrain: EventEmitter<any> =   new EventEmitter();
   trainData={
      
-    source:String,
-    destination:String
+    source:'',
+    destination:''
   }
   //selectedTrain={}
-  trainsList={}
- constructor(private homeService:HomeService ) { }
+  trainsList:any;
+ constructor(public homeService:HomeService ) { }
 
  ngOnInit(): void {
   

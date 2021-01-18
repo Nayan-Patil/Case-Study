@@ -32,6 +32,10 @@
                 <br>
                 <input  type="password" name="password" #password="ngModel" [(ngModel)]="loginUserData.password" id="">
             </div>  
+            <div>
+                <h2 class="text-danger" *ngIf="isLoginError">{{errorMessage1}}</h2>
+                <h2 class="text-danger" *ngIf="isLoginError" >{{errorMessage2}}</h2>
+            </div>
            <span> <button (click)="loginUser()"  routerLink="/ticket/profile" type="button" class="btn btn-success">LogIn</button></span>
         <span> <button class="btn btn-danger" routerLink="" type="button" >Back</button></span>
         </form>

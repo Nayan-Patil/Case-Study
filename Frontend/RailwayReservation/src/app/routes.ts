@@ -12,6 +12,7 @@ import { ReservationComponent } from './ticket/reservation/reservation.component
 import { combineAll } from 'rxjs/operators';
 import { SearchComponent } from './ticket/reservation/search/search.component';
 import { AuthGuard } from './auth.guard';
+import {AdminGuard} from './admin.guard';
 import { ViewTicketsComponent } from './ticket/view-tickets/view-tickets.component';
 import { AdminOperationsComponent } from './admin-operations/admin-operations.component';
 import { AddTrainComponent } from './admin-operations/add-train/add-train.component';
@@ -33,7 +34,8 @@ export const appRoutes: Routes = [
   },
   {
     path:'admin', component:AdminComponent,
-    children:[{path:'login', component:AdminLoginComponent}]
+    children:[{path:'login', component:AdminLoginComponent,
+    }]
   },
   {
       path:'ticket', component:TicketComponent,
@@ -46,6 +48,7 @@ export const appRoutes: Routes = [
 },
 {
   path:'adminOperations', component:AdminOperationsComponent,
+  canActivate:[AdminGuard],
   children:[{path:'addTrain',component:AddTrainComponent},
 {path:'allTrain',component:AdminTrainComponent}]
 },

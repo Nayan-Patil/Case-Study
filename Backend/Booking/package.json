@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --timeout 10000",
-    "coverage":"nyc --reporter==lcov --reporter=text-lcov npm test"
+    "start": "node bookingService.js",
+    "deploy": "serverless deploy",
+    "coverage": "nyc --reporter==lcov --reporter=text-lcov npm test"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-serverless-express": "^3.4.0",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -18,6 +21,7 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
+    "serverless": "^2.18.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^8.2.1",

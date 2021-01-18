@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const bcrypt=require('bcrypt'); 
+const bcrypt=require('bcryptjs'); 
 const {isEmail}=require('validator');
 const Schema=mongoose.Schema;
 
@@ -19,16 +19,17 @@ const adminSchema=new Schema({
         minlength:6
     }
 });
+
 adminSchema.pre('save', async function(next){
-    const salt=await bcrypt.genSalt();
-    this.password=await bcrypt.hash(this.password, salt);
+    const salt=await bcrypt.genSaltSync();
+    this.password=await bcrypt.hashSync(this.password, salt);
     next();
 })
 
 adminSchema.statics.login=async function(email, password){
     const admin = await this.findOne({email:email});
     if(admin){
-        const auth=bcrypt.compare(password, admin.password);
+        const auth=bcrypt.compareSync(password, admin.password);
         if(auth){
             return admin;
         }
@@ -36,5 +37,5 @@ adminSchema.statics.login=async function(email, password){
     }
     throw Error ("Wrong emmail Id");
     }
-    
+  
 module.exports=adminData=mongoose.model("adminDetails",adminSchema);

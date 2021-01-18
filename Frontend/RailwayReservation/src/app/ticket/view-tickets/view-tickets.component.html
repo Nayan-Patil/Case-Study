@@ -4,7 +4,7 @@
 <button class="ticket-button" style="font-size: 20px;"  (click)=viewTickets()>Tickets</button>
 <br>
 <br>
-<table class="center" *ngIf="this.show" border="1" cellspacing='2' cellpadding='5' width='100%'>
+<table class="center" *ngIf="this.show" border="1" cellspacing='2' cellpadding='6' width='100%'>
     <thead>
       <tr>
         
@@ -44,7 +44,7 @@
         <td >{{ticket.pnr}}</td>
       
         <td>{{ticket.totalFare}}</td>
-        <td><button  class="btn btn-info" (click)="print(ticket)">Print</button></td>
+        <td><button  class="btn btn-info" (click)="print()">Print</button></td>
         <td><button  class="btn btn-danger" (click)="deleteTicket(ticket.pnr)">Cancel Ticket</button></td>
       
       </tr>

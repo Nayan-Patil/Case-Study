@@ -1,5 +1,5 @@
 export class Ticket {
-    userName!: String;
+    email!: String;
     
     source!: String;
     destination!: String;
@@ -11,4 +11,5 @@ export class Ticket {
     journeyDate!:String;
     dTime!:String;
     aTime!:String;
+    totalFare!:any;
 }

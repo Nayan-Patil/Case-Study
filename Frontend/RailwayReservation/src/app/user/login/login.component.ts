@@ -7,9 +7,18 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  isLoginError=false;
+  errorMessage1='';
+  errorMessage2='';
 trainlogo:String="assets/img/trainbooklogo.jpg"
-  loginUserData={}
-  constructor(private userService: UserService,
+  loginUserData={
+    email:'',
+    password:'',
+    name:'',
+    age:0
+
+  }
+  constructor(public userService: UserService,
     private _router: Router) { }
 
   ngOnInit(): void {
@@ -17,15 +26,28 @@ trainlogo:String="assets/img/trainbooklogo.jpg"
   loginUser(){
     this.userService.loginUser(this.loginUserData)
         .subscribe(
-          res=> {console.log(res),
+          res=> {console.log(res);
+          
+            
+              this.isLoginError=false;
             localStorage.setItem('token',res.token),
-            localStorage.setItem('userName',res.email)
+            localStorage.setItem('email',res.email)
             localStorage.setItem('name',res.name)
             localStorage.setItem('age',res.age)
          // this._router.navigate(['/booking'])
+            
           },
-          err=>console.log(err)
-        )
+          err=>{
+            console.log(err.error);
+            if(err.error=="Invalid email"){
+              this.isLoginError=true;
+              this.errorMessage1="Wrong email"
+            }
+            else if(err.error=="Invalid Password"){
+              this.isLoginError=true;
+              this.errorMessage1="Invalid Password";
+            }
+                }      )
   }
 
 }

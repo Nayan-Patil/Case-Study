@@ -5,17 +5,20 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { AddTrainComponent } from '../admin-operations/add-train/add-train.component';
 import { TrainUpdateComponent } from '../admin-operations/train-update/train-update.component';
 import {Train} from '../shared/train.model';
-import swal from 'sweetalert';
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+
+const swal: SweetAlert = _swal as any;
 @Component({
   selector: 'app-admin-operations',
   templateUrl: './admin-operations.component.html',
   styleUrls: ['./admin-operations.component.css']
 })
 export class AdminOperationsComponent implements OnInit {
-  allTrains={};
+  allTrains:any;
   show:boolean=false;
-  constructor(private adminService:AdminService,
-    private dialog: MatDialog) { }
+  constructor(public adminService:AdminService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -48,7 +51,7 @@ export class AdminOperationsComponent implements OnInit {
   }
   refreshTrainList(){
     this.adminService.getAllTrains().subscribe((res)=>{
-      this.adminService.selectedTrain=res as Train;
+      this.adminService.selectedTrain=res as unknown as Train;
     })
   }
   

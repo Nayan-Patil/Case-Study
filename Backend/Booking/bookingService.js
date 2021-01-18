@@ -31,10 +31,6 @@ train_ticket.use('/booking-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
 
 //const Train= require('./DB/trainData');
 const ticketData = require('./DB/ticketDB');
-const connectDB2=require('../AdminOperations/DB/connection');
-const trainModel=require('../AdminOperations/DB/trainData');
-const classModel=require('../AdminOperations/DB/classModel');
-connectDB2();
 
 const bodyParser=require('body-parser');
 //const { response } = require('express');
@@ -51,7 +47,7 @@ train_ticket.use(cors());
 
 
 train_ticket.get('/fare/:classType',(req,res)=>{
-    axios.get("http://localhost:3000/classType/"+req.params.classType).then((response)=> {
+    axios.get("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/classType/"+req.params.classType).then((response)=> {
          res.send(response.data);
          console.log(response.fare)
         //console.log(response.data.fare);
@@ -65,7 +61,7 @@ train_ticket.get('/fare/:classType',(req,res)=>{
 // Get train by source and destination
 
     train_ticket.get('/train/:source/:destination',(req,res)=>{
-        axios.get("http://localhost:3000/trainList/"+req.params.source+"/"+req.params.destination).then((response)=>{
+        axios.get("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/trainList/"+req.params.source+"/"+req.params.destination).then((response)=>{
         var object={trainNumber:response.data.trainNumber,vacantSeats:response.data.vacantSeats, trainName:response.data.trainName, source:response.data.source, destination:response.data.destination, distance:response.data.distance}    
         res.status(200).send(response.data);
         console.log(response.data.vacantSeats);
@@ -141,49 +137,42 @@ train_ticket.post('/bookTicket/',(req,res)=>{
     ticket.classType=classType; 
     ticket.journeyDate=journeyDate; 
 
-
-    trainModel.findOne({trainName:req.body.trainName},(err,val)=>{
-        if(err){
-            console.log(err);
-        }
-        else if(!val){
-            console.log("Not found");
-        }
-        else{
-            trainNumber=val.trainNumber;
-            dTime=val.dTime;
-            aTime=val.aTime;
+    axios.get("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/train/"+trainName).then((response)=>{
+        const tr=response.data[0];
+        console.log(tr);
+        trainNumber=tr.trainNumber;
+            dTime=tr.dTime;
+            aTime=tr.aTime;
             ticket.dTime=dTime;
             ticket.aTime=aTime;
-            distance=val.distance;
+            distance=tr.distance;
             ticket.distance=distance;
             ticket.trainNumber=trainNumber;
-            console.log("vacant seats"+val.vacantSeats);
-            if(val.vacantSeats>=req.body.noOfTickets){
-                var newVacantSeats=(val.vacantSeats-req.body.noOfTickets);
-            trainModel.findOneAndUpdate({trainName:req.body.trainName},
-                {
-                    $set:{ vacantSeats: newVacantSeats}
-                },
-                {upsert:true},
-        function(err, newTrain){
-            if(err){
-                console.log('error occured');
-                console.log(err);
-            }
-        }
-                );
-                var pnr=trainNumber+classType+(val.vacantSeats-noOfTickets);
+            console.log("vacant seats"+tr.vacantSeats);
+            if(tr.vacantSeats>=req.body.noOfTickets){
+                var newVacantSeats=(tr.vacantSeats-req.body.noOfTickets);
                 
-                classModel.findOne({classType:req.body.classType},(err,val)=>{
-                    if(err){
-                        console.log("error occured "+err);
-                    }
-                    else if(!val){
-                        console.log("Value not found");
-                    }
-                    else{ 
-                        var fare=val.fare;
+                var vacantSeats1=
+         {
+            trainNumber:tr.trainNumber,
+            trainName:trainName,
+            source:tr.source,
+            destination:tr.destination,
+            distance:tr.distance,
+            aTime:tr.aTime,
+            dTime:tr.dTime,
+           vacantSeats:(newVacantSeats)
+         }
+               
+                var pnr=trainNumber+classType+(tr.vacantSeats-noOfTickets);
+                axios.get("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/classType/"+classType).then((response)=>{
+                    const f=response.data[0];
+                   console.log(f);
+                   axios.put(`https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/trainUpdateSeats/${trainName}`,vacantSeats1).then((response)=>{
+                    console.log(response.data);
+                    console.log(newVacantSeats)
+                })
+                        var fare=f.fare;
                         console.log(fare);
                         ticket.noOfTickets=noOfTickets;
                         var totalFare=fare*noOfTickets*distance;
@@ -193,18 +182,14 @@ train_ticket.post('/bookTicket/',(req,res)=>{
                          ticketModel.save();
                         res.status(200).json(ticketModel);
             
-            
-                    }
+                    
                 })
-
             }
             else{
-                console.log("No vacant seats");
+                console.log("No vacant Seats")
             }
-        }
-        
+
     })
-    
 
     
     }catch(err){
@@ -234,7 +219,7 @@ train_ticket.post('/bookTicket/',(req,res)=>{
 
 
 train_ticket.get('/fare/:classType',(req,res)=>{
-axios.get("http://localhost:3000/classType/:"+req.params.classType)
+axios.get("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/classType/:"+req.params.classType)
  .then((response)=> {
      res.status(200).send(response.data);
     
@@ -246,14 +231,6 @@ axios.get("http://localhost:3000/classType/:"+req.params.classType)
      }
  })
 });
-/*train_ticket.get('/fareValue/',(req,res)=>{
-    var classType1=req.query.classType;
-    axios.get("http://localhost:3000/classType",{classType1}).then(result=>{
-                    console.log("res is "+result);
-                    
-                })
-})
-*/
 
 /**
   * @swagger
@@ -337,4 +314,5 @@ train_ticket.delete('/cancellation/:pnr',async(req,res)=>{
 
 
 
-train_ticket.listen(5555);
+//train_ticket.listen(5555);
+module.exports=train_ticket;

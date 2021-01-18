@@ -1,3 +1,4 @@
+@media only screen and (min-width: 768px) {
 *{
     font-family: Body,Quicksand,sans-serif;
    
@@ -24,4 +25,5 @@ span{
     max-width: 1170px;
     margin: 10px;
 
+}
 }

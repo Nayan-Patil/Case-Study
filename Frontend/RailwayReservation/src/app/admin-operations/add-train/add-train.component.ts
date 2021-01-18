@@ -3,7 +3,10 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AdminService} from '../../shared/admin.service';
-import swal from 'sweetalert';
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+
+const swal: SweetAlert = _swal as any;
 @Component({
   selector: 'app-add-train',
   templateUrl: './add-train.component.html',
@@ -14,9 +17,9 @@ export class AddTrainComponent implements OnInit {
 showSuccessMessage="";
 serverErrorMessage=''
 show:boolean=false;
-  constructor(private adminService: AdminService,
+  constructor(public adminService: AdminService,
     private router:Router,
-    private dialogRef:MatDialogRef<AddTrainComponent>) { }
+    public dialogRef:MatDialogRef<AddTrainComponent>) { }
 
   ngOnInit(): void {
   }

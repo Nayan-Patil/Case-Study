@@ -21,8 +21,8 @@ export class HomePageComponent implements OnInit {
    
    public show :boolean=false;
   // public show1 :boolean=false;
-   trainsList={}
-  constructor(private homeService:HomeService,
+   trainsList:any;
+  constructor(public homeService:HomeService,
               private _router:Router ) { }
 
   ngOnInit(): void {

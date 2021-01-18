@@ -3,29 +3,29 @@ import { TicketService } from 'src/app/shared/ticket.service';
 import {UserService} from '../../shared/user.service';
 import * as printJS from 'print-js';
 import {Ticket} from '../../shared/ticket.model';
-import swal from 'sweetalert';
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+
+const swal: SweetAlert = _swal as any;
 @Component({
   selector: 'app-view-tickets',
   templateUrl: './view-tickets.component.html',
   styleUrls: ['./view-tickets.component.css']
 })
 export class ViewTicketsComponent implements OnInit {
-  tickets={
-    
-  }
-  ticket={
-
-  }
+  tickets:any;
+  ticket={}
   public show:boolean=false;
   pnr!:String;
-  constructor(private ticketService:TicketService,
-    private userService: UserService) { }
+  constructor(public ticketService:TicketService,
+    public userService: UserService) { }
+    email2:any=this.userService.getEmail()
   email1=this.userService.getEmail();
     ngOnInit(): void {
   }
 
   viewTickets(){
-    this.ticketService.viewTicket(this.email1)
+    this.ticketService.viewTicket(this.email2)
         .subscribe(
           (res:any)=>{
             console.log(res),

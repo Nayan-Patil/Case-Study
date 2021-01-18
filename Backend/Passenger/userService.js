@@ -1,6 +1,6 @@
 const express= require('express');
 const cors=require('cors');
-const bcrypt=require('bcrypt');
+const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const connectDB=require('./DB/connection');
 const passengerRegister=express();
@@ -33,7 +33,7 @@ const createToken= (id)=>{
 
 //User Registration
 
-passengerRegister.post('/registration',async(req,res, next)=>{
+passengerRegister.post('/registration',(req,res)=>{
    
     const{email, password, name, age}= req.body;
 
@@ -47,7 +47,7 @@ passengerRegister.post('/registration',async(req,res, next)=>{
     user.age=req.body.age;
     
     let userModel= new userData(user);
-    await userModel.save();
+     userModel.save();
     let payload={subject : user._id}
     let token=jwt.sign(payload, 'secret');
    // res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge*1000});
@@ -76,7 +76,7 @@ passengerRegister.post('/login',(req, res)=>{
             else{
                 const age=user.age;
                 const name=user.name;
-                const auth=bcrypt.compare(user1.password, user.password)
+                const auth=bcrypt.compareSync(user1.password, user.password)
                 if(auth){
                     let payload={subject: user._id}
                     let token=jwt.sign(payload, 'secret');
@@ -93,21 +93,9 @@ passengerRegister.post('/login',(req, res)=>{
    
 })
 
-passengerRegister.get('/logIn/', async (req, res)=>{
-const {email, password}=req.body;
-
-try{
-    const user= await userData.login(email, password);
-    res.status(200).json({userEmail: user.email});
-}
-catch(err){
-    res.send("error "+err);
-}
-
-});
 
 
 
 
-passengerRegister.listen(8081);
+//passengerRegister.listen(8081);
 module.exports=passengerRegister;

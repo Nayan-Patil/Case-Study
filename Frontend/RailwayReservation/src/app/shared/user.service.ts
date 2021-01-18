@@ -21,11 +21,11 @@ export class UserService {
               private router:Router) { }
   
   postUser(user: User){
-   return this.http.post("http://localhost:8081/registration",user);
+   return this.http.post("https://xh5lnzal87.execute-api.us-west-1.amazonaws.com/production/registration",user);
   }
 
   loginUser(user: any){
-    return this.http.post<any>("http://localhost:8081/login",user);
+    return this.http.post<any>("https://xh5lnzal87.execute-api.us-west-1.amazonaws.com/production/login",user);
   }
   loggedIn(){
     //this.router.navigate(['/ticket'])
@@ -35,7 +35,7 @@ export class UserService {
   loggedoutUser(){
     //this.router.navigate([''])
     localStorage.removeItem('name');
-    localStorage.removeItem('userName');
+    localStorage.removeItem('email');
     localStorage.removeItem('age');
     return localStorage.removeItem('token');
     
@@ -45,7 +45,7 @@ export class UserService {
     return localStorage.getItem('token')
   }
   getEmail(){
-    return localStorage.getItem('userName');
+    return localStorage.getItem('email');
   }
   getName(){
     return localStorage.getItem('name')

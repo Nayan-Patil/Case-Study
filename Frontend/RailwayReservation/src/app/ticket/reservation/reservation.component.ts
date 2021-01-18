@@ -16,54 +16,13 @@ declare let paypal:any;
 })
 export class ReservationComponent implements OnInit {
 show:boolean=false;
-totalFare=0;
+totalFare:any;
  selectedTrain={
   trainNumber:0,
   trainName:''
   
 }
-/*addScript:boolean=false;
-finalAmount:number=1;
-paypalConfig={
-  env:'sandbox',
-  client:{
-    sandbox:"AeIo5Y7ehj6Kd0Wcx3CEbFCxQEe9ckqVbmsvTwnHDHSQX1jDjSDaGLde1NvLXur0qsDOleGUegrcIRHW",
-    production:"<your-production-key>"
 
-  },
-  commit:true,
-  payment:(data, actions)=>{
-    return actions.payment.create({
-      payment:{
-        transactions:[
-          {amount:{total:this.finalAmount, currency:"INR"}}
-        ]
-      }  
-    });
-  },
-  onAuthorize:(data,actions)=>{
-    return actions.payment.execute().then((payment)=>{
-      console.log("payment success")
-    })
-  }
-}
-ngAfterViewChecked(): void{
-  if(!this.addScript){
-    this.addPaypalScript().then((payment)=>{
-        paypal.button.render(this.paypalConfig, '#paypal-checkout-btn');
-    })
-  }
-}
-addPaypalScript(){
-  this.addScript=true;
-  return new Promise((resolve,reject)=>{
-    let scriptagElement=document.createElement('script');
-    scriptagElement.src='http://www.paypalobjects.com/api/checkout.js';
-    scriptagElement.onload=resolve;
-    document.body.appendChild(scriptagElement);
-  })
-}
-*/
 train1={}
 //selectedTrain1={}
  /* trainNumber:0,
@@ -78,11 +37,12 @@ train1={}
   destination:String
 }
 //selectedTrain={}
-trainsList={}
-  constructor(private ticketService : TicketService,
-    private homeService:HomeService,
-    private userService:UserService,
-    private winRef: WindowRefService
+trainsList:any;
+ticketDetails:any;
+  constructor(public ticketService : TicketService,
+    public homeService:HomeService,
+    public userService:UserService,
+    public winRef: WindowRefService
               ) { }
 
   ngOnInit(): void {
@@ -91,21 +51,27 @@ trainsList={}
 email1=this.userService.getEmail();
   
 ticketData={
-  userName:'this.email1',
+  email:'',
   source:'',
   destination:'',
   trainName:'',
   classType:'',
-  noOfTickets:0
-  
+  noOfTickets:0,
+  aTime:'',
+  dTime:'',
+  totalFare:0,
+  journeyDate:''
 }
   bookTicket(){
     this.ticketService.bookTicket(this.ticketData)
          .subscribe(
            res=>{console.log(res),
             this.show=true;
-            this.totalFare=res.totalFare;
+            this.ticketDetails=res;
+
+          this.totalFare=this.ticketDetails.totalFare;
             this.payWithRazor();
+            console.log(this.ticketDetails);
             
            // this.finalAmount=res.totalFare;
          // alert("Ticket is booked Successfully with PNR number :"+res.pnr)
@@ -158,12 +124,12 @@ searchTrain(){
         "color": "#6fbc29"
       }
     };
-    options.handler = ((response) => {
+    options.handler = ((response:any) => {
         options['payment_response_id'] = response.razorpay_payment_id;
-        this.paymentService.payWithRazor({cart: finalObj, payment: options});
+        //this.paymentService.payWithRazor({cart: finalObj, payment: options});
     });
     options.modal.ondismiss = (() => {
-        this.loginService.SetLoader = false;
+        console.log('');
     });
     let rzp = new this.winRef.nativeWindow.Razorpay(options);
     rzp.open();

@@ -15,7 +15,7 @@
     <span *ngIf="!userService.loggedIn()"   routerLink="/user/registration" routerLinkActivate="active">Register</span>
     <span  *ngIf="!userService.loggedIn()"  routerLink="/user/logIn" routerLinkActivate="active">Login</span>
     <span  style="cursor:pointer" *ngIf="userService.loggedIn()" routerLink="/" (click)="userService.loggedoutUser()">Logout</span>
-    <span *ngIf="!userService.loggedIn()"  routerLink="/user/logIn" routerLink='/admin/login' routerLinkActivate="active">Admin</span>
+    <span *ngIf="!userService.loggedIn()"   routerLink='/admin/login' routerLinkActivate="active">Admin</span>
     <!--<span style="cursor:pointer" *ngIf="userService.loggedIn()" (click)="userService.loggedoutUser()">Logout</span>-->
   </div>
 </mat-toolbar>

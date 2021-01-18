@@ -23,16 +23,12 @@ export class HomeService {
 
 searchTrain(source:String, destination:String):
 Observable<Train> {
-  return this.http.get<Train>("http://localhost:3000/trainList/"+source+'/'+destination)
+  return this.http.get<Train>("https://1349qzbv96.execute-api.us-west-1.amazonaws.com/production/trainList/"+source+'/'+destination)
 
 }
 
 
 
 
-/*{
-  return this.http.get("http://localhost:(3000/trainList")
-              .map((res:Response)=> res.json())
-              .catch((error: any)=>Observable.throw(error.json().error));
-}*/
+
 }

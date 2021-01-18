@@ -1,6 +1,6 @@
 const mongoose= require('mongoose');
 mongoose.set('useUnifiedTopology', true);
-const bcrypt=require('bcrypt');
+const bcrypt=require('bcryptjs');
 const {isEmail}=require('validator');
 const Schema= mongoose.Schema;
 
@@ -27,19 +27,19 @@ var userSchema=new Schema({
     }
 })
 
-userSchema.pre('save', async function(next){
-    const salt=await bcrypt.genSalt();
-    this.password=await bcrypt.hash(this.password, salt);
+userSchema.pre('save', function(next){
+    const salt=bcrypt.genSaltSync();
+    this.password=bcrypt.hashSync(this.password, salt);
     next();
 })
 
 
 // static method to login user
 
-userSchema.statics.login=async function(email, password){
-const user = await this.findOne({email:email});
+userSchema.statics.login=function(email, password){
+const user =  this.findOne({email:email});
 if(user){
-    const auth=bcrypt.compare(password, user.password);
+    const auth=bcrypt.compareSync(password, user.password);
     if(auth){
         return user;
     }

@@ -10,7 +10,7 @@ opened=true;
 image1:String="assets/img/goldenchariot.jpg"
 image2:String="assets/img/atulya bharat.jpg"
 
-constructor(private userService:UserService) { }
+constructor(public userService:UserService) { }
 
   userName=this.userService.getEmail();
   ngOnInit(): void {
