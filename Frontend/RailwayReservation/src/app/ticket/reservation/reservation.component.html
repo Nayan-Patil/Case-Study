@@ -111,13 +111,25 @@
             <div class="form-group">
                 <mat-form-field appearance="fill">
                     <mat-label>From</mat-label>
-                    <input matInput name="source" #from="ngModel" [(ngModel)]="ticketData.source" placeholder="Enter Source" required>
+                    <input matInput name="source" #from="ngModel" [(ngModel)]="ticketData.source" [matAutocomplete]="auto" placeholder="Enter Source" required>
+                    <mat-autocomplete autoActiveFirstOption  #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of options" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+
                 </mat-form-field>
+               
             </div>
             <div class="form-group">
                 <mat-form-field appearance="fill">
                     <mat-label>To</mat-label>
-                    <input matInput name="destination" #destination="ngModel" [(ngModel)]="ticketData.destination" placeholder="Enter Destination" required>
+                    <input matInput name="destination" #destination="ngModel" [(ngModel)]="ticketData.destination" [matAutocomplete]="auto" placeholder="Enter Destination" required>
+                    <mat-autocomplete autoActiveFirstOption  #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of options" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
                 </mat-form-field>
             </div>
             <div class="form-group"><button type="submit"  (click)="searchTrain()">Check</button></div>

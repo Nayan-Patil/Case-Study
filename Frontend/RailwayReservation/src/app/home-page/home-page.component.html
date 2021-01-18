@@ -14,7 +14,13 @@
           
           <mat-form-field appearance="fill">
             <mat-label>From</mat-label>
-            <input matInput name="source" #source="ngModel" [(ngModel)]="trainData.source" placeholder="Enter source station"  required>
+            <input matInput name="source" #source="ngModel" [(ngModel)]="trainData.source" [matAutocomplete]="auto" placeholder="Enter source station"  required>
+            <mat-autocomplete autoActiveFirstOption  #auto="matAutocomplete">
+              <mat-option *ngFor="let option of options" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+            <h3 class="text-danger" *ngIf="this.isSearchError">Source and Destination station cannot be same</h3>
           </mat-form-field>
         </div>
       </div>
@@ -23,7 +29,14 @@
         <div class="form-group">
           <mat-form-field appearance="fill">
             <mat-label>To</mat-label>
-            <input matInput name="destination" #destination="ngModel" [(ngModel)]="trainData.destination" placeholder="Enter Destination" required>
+
+            <input  name="destination" #destination="ngModel" [(ngModel)]="trainData.destination" matInput [matAutocomplete]="auto" placeholder="Enter Destination" required>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          
           </mat-form-field>
         </div>
       </div>

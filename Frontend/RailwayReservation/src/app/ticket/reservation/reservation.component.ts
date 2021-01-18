@@ -15,6 +15,9 @@ declare let paypal:any;
   providers: [WindowRefService]
 })
 export class ReservationComponent implements OnInit {
+  isSearchError=false;
+ options: String[] = ['CSMT', 'Pune', 'Kanyakumari', 'Nagpur', 'Solapur', 'Jammu', 'Nashik', 'Delhi','Nagpur', 'Solapur', 'Bhuvneshwar', 'Lucknow', 'Gaya'];
+  
 show:boolean=false;
 totalFare:any;
  selectedTrain={
@@ -82,6 +85,7 @@ ticketData={
 //dialog
 
 searchTrain(){
+  
   this.homeService.searchTrain(this.ticketData.source, this.ticketData.destination)
   .subscribe(
     (    res: any)=>{ console.log(res),

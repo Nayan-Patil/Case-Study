@@ -23,7 +23,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSidenavModule} from '@angular/material/sidenav';
-//import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { LoginComponent } from './user/login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HomeService } from './shared/home.service';
@@ -76,7 +76,7 @@ import { ProfileComponent } from './ticket/profile/profile.component';
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-   // MatAutocompleteModule,
+   MatAutocompleteModule,
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,
